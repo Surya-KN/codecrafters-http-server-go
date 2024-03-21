@@ -38,8 +38,16 @@ func main() {
 
   path := strings.Split(string(buf), "\r\n")
   path = strings.Split(path[0], " ")
-  if path[1] == "/" {
-	conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
+  output := strings.Split(path[1], "/")
+
+
+
+  if output[0] == "echo" {
+	conn.Write([]byte("HTTP/1.1 200 OK\r\n"))
+	conn.Write([]byte("Content-Type: text/plain\r\n"))
+	conn.Write([]byte("Content-Length" + string(rune(len(output[1]))) +"\r\n"))
+	conn.Write([]byte(" \r\n"))
+	conn.Write([]byte(output[1]+"\r\n\r\n"))
   } else {
 	conn.Write([]byte("HTTP/1.1 404 NOT FOUND\r\n\r\n"))
   }
