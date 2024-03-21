@@ -40,7 +40,7 @@ func main() {
   path := strings.Split(string(buf), "\r\n")
   pathfirst := strings.Split(path[0], " ")
   output := strings.Split(pathfirst[1], "/")
-  useragent := strings.Split(path[2], " ")
+  useragent := strings.Split(path[3], " ")
 //   fmt.Println(output[2])
 
   if pathfirst[1] == "/" {
