@@ -43,7 +43,7 @@ func main() {
   useragent := strings.Split(path[2], " ")
 //   fmt.Println(output[2])
 
-  if path[1] == "/" {
+  if pathfirst[1] == "/" {
 	conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
   } else if output[1] == "echo" {
 	// fmt.Println(path[1][6:])
