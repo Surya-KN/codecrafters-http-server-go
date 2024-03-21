@@ -41,7 +41,7 @@ func main() {
   path = strings.Split(path[0], " ")
   output := strings.Split(path[1], "/")
 
-  //fmt.Println(output[1])
+  fmt.Println(output[2])
 
   if path[1] == "/" {
 	conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
