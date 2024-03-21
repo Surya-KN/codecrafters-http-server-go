@@ -46,11 +46,11 @@ func main() {
   if path[1] == "/" {
 	conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
   } else if output[1] == "echo" {
-	fmt.Println(path[1][6:])
+	// fmt.Println(path[1][6:])
 	conn.Write([]byte("HTTP/1.1 200 OK\r\n"))
 	conn.Write([]byte("Content-Type: text/plain\r\n"))
-	conn.Write([]byte("Content-Length:" + strconv.Itoa(len(path[1][6:])) +"\r\n"))
-	conn.Write([]byte(" \r\n"))
+	conn.Write([]byte("Content-Length: " + strconv.Itoa(len(path[1][6:])) +"\r\n"))
+	conn.Write([]byte("\r\n"))
 	conn.Write([]byte(path[1][6:]+"\r\n\r\n"))
   } else {
 	conn.Write([]byte("HTTP/1.1 404 NOT FOUND\r\n\r\n"))
