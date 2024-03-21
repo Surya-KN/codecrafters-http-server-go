@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 
 	// Uncomment this block to pass the first stage
@@ -48,7 +49,7 @@ func main() {
 	
 	conn.Write([]byte("HTTP/1.1 200 OK\r\n"))
 	conn.Write([]byte("Content-Type: text/plain\r\n"))
-	conn.Write([]byte("Content-Length" + string(rune(len(output[2]))) +"\r\n"))
+	conn.Write([]byte("Content-Length:" + strconv.Itoa(len(output[2])) +"\r\n"))
 	conn.Write([]byte(" \r\n"))
 	conn.Write([]byte(output[2]+"\r\n\r\n"))
   } else {
