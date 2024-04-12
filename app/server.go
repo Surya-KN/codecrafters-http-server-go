@@ -25,9 +25,7 @@ func handleRequest(conn net.Conn) {
 	path := strings.Split(string(buf), "\r\n")
 	pathfirst := strings.Split(path[0], " ")
 	output := strings.Split(pathfirst[1], "/")
-	for pathy := range path {
-		fmt.Println(pathy)
-	}
+
 	useragent := []string{}
 
 	//   fmt.Println(useragent)
@@ -68,7 +66,9 @@ func handleRequest(conn net.Conn) {
 			return
 		}
 		if pathfirst[0] == "POST" {
-
+			for _, cont := range path {
+				fmt.Println(cont)
+			}
 			conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
 			return
 		}
