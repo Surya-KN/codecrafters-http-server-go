@@ -12,7 +12,7 @@ import (
 
 func handleRequest(conn net.Conn) {
 	buf := make([]byte, 5000)
-	_, err = conn.Read(buf)
+	_, err := conn.Read(buf)
 
 	if err != nil {
 		fmt.Println("Error reading:", err.Error())
