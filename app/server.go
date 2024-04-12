@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"strconv"
 	"strings"
@@ -53,9 +52,10 @@ func handleRequest(conn net.Conn) {
 		conn.Write([]byte("\r\n"))
 		conn.Write([]byte(useragent[1]))
 	} else if output[1] == "files" {
-		var directory string
-		flag.StringVar(&directory, "directory", ".", "the directory to serve files from")
-		flag.Parse()
+		// var directory string
+		// flag.StringVar(&directory, "directory", ".", "the directory to serve files from")
+		// flag.Parse()
+		directory := os.Args[2]
 
 		filename := pathfirst[1][7:]
 		fmt.Println("directory:", directory)
