@@ -54,16 +54,16 @@ func main() {
 	// fmt.Println(path[1][6:])
 	conn.Write([]byte("HTTP/1.1 200 OK\r\n"))
 	conn.Write([]byte("Content-Type: text/plain\r\n"))
-	conn.Write([]byte("Content-Length: " + strconv.Itoa(len(pathfirst[1][6:])) +"\r\n"))
+	conn.Write([]byte("Content-Length: " + strconv.Itoa(len(pathfirst[1][6:] +"\r\n")) +"\r\n"))
 	conn.Write([]byte("\r\n"))
-	conn.Write([]byte(pathfirst[1][6:]))
+	conn.Write([]byte(pathfirst[1][6:]+"\r\n"))
   } else if output[1] == "user-agent" {
 	fmt.Println(useragent[1])
 	conn.Write([]byte("HTTP/1.1 200 OK\r\n"))
 	conn.Write([]byte("Content-Type: text/plain\r\n"))
-	conn.Write([]byte("Content-Length: " + strconv.Itoa(len(useragent[1]) ) +"\r\n"))
+	conn.Write([]byte("Content-Length: " + strconv.Itoa(len(useragent[1] +"\r\n") ) +"\r\n"))
 	conn.Write([]byte("\r\n"))
-	conn.Write([]byte(useragent[1]))
+	conn.Write([]byte(useragent[1]+"\r\n"))
   } else {
 	conn.Write([]byte("HTTP/1.1 404 NOT FOUND\r\n\r\n"))
   }
