@@ -26,7 +26,7 @@ func handleRequest(conn net.Conn) {
 	path := strings.Split(string(buf), "\r\n")
 	pathfirst := strings.Split(path[0], " ")
 	output := strings.Split(pathfirst[1], "/")
-	fmt.Println(pathfirst)
+	// fmt.Println(pathfirst)
 	useragent := []string{}
 
 	//   fmt.Println(useragent)
@@ -58,6 +58,8 @@ func handleRequest(conn net.Conn) {
 		flag.Parse()
 
 		filename := pathfirst[1][7:]
+		fmt.Println("directory:", directory)
+		fmt.Println("filename:", filename)
 		file, err := os.Open(directory + "/" + filename)
 		if err != nil {
 			conn.Write([]byte("HTTP/1.1 404 NOT FOUND\r\n\r\n"))
