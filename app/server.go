@@ -74,6 +74,7 @@ func main() {
 			fmt.Println("Error accepting connection: ", err.Error())
 			os.Exit(1)
 		}
+		l.Close()
 		go handleRequest(conn)
 	}
 
