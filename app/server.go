@@ -62,7 +62,12 @@ func handleRequest(conn net.Conn) {
 		fmt.Println("filename:", filename)
 		if pathfirst[0] == "POST" {
 			content := path[len(path)-1]
+			content = strings.TrimRight(content, "\x00")
 			err = os.WriteFile(directory+"/"+filename, []byte(content), 0644)
+			if err != nil {
+				conn.Write([]byte("HTTP/1.1 500 INTERNAL SERVER ERROR\r\n\r\n"))
+				return
+			}
 			// file.WriteString(content)
 
 			conn.Write([]byte("HTTP/1.1 201 CREATED\r\n\r\n"))
