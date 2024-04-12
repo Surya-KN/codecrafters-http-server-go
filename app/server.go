@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"strconv"
 	"strings"
@@ -25,7 +26,7 @@ func handleRequest(conn net.Conn) {
 	path := strings.Split(string(buf), "\r\n")
 	pathfirst := strings.Split(path[0], " ")
 	output := strings.Split(pathfirst[1], "/")
-	fmt.Println("output: ", output)
+	fmt.Println(pathfirst)
 	useragent := []string{}
 
 	//   fmt.Println(useragent)
@@ -51,6 +52,29 @@ func handleRequest(conn net.Conn) {
 		conn.Write([]byte("Content-Length: " + strconv.Itoa(len(useragent[1])) + "\r\n"))
 		conn.Write([]byte("\r\n"))
 		conn.Write([]byte(useragent[1]))
+	} else if output[1] == "files" {
+		var directory string
+		flag.StringVar(&directory, "directory", ".", "the directory to serve files from")
+		flag.Parse()
+
+		filename := pathfirst[1][7:]
+		file, err := os.Open(directory + "/" + filename)
+		if err != nil {
+			conn.Write([]byte("HTTP/1.1 404 NOT FOUND\r\n\r\n"))
+			return
+		}
+		defer file.Close()
+		stat, _ := file.Stat()
+		filesize := stat.Size()
+		filecontent := make([]byte, filesize)
+		file.Read(filecontent)
+
+		conn.Write([]byte("HTTP/1.1 200 OK\r\n"))
+		conn.Write([]byte("Content-Type: application/octet-stream\r\n"))
+		conn.Write([]byte("Content-Length: " + strconv.Itoa(len(filecontent)) + "\r\n"))
+		conn.Write([]byte("\r\n"))
+		conn.Write([]byte(filecontent))
+
 	} else {
 		conn.Write([]byte("HTTP/1.1 404 NOT FOUND\r\n\r\n"))
 	}
