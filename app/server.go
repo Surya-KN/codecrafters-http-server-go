@@ -60,11 +60,6 @@ func handleRequest(conn net.Conn) {
 		filename := pathfirst[1][7:]
 		fmt.Println("directory:", directory)
 		fmt.Println("filename:", filename)
-		file, err := os.Open(directory + "/" + filename)
-		if err != nil {
-			conn.Write([]byte("HTTP/1.1 404 NOT FOUND\r\n\r\n"))
-			return
-		}
 		if pathfirst[0] == "POST" {
 			for _, cont := range path {
 				fmt.Println(cont)
@@ -72,6 +67,12 @@ func handleRequest(conn net.Conn) {
 			conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
 			return
 		}
+		file, err := os.Open(directory + "/" + filename)
+		if err != nil {
+			conn.Write([]byte("HTTP/1.1 404 NOT FOUND\r\n\r\n"))
+			return
+		}
+
 		defer file.Close()
 		stat, _ := file.Stat()
 		filesize := stat.Size()
