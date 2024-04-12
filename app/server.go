@@ -70,7 +70,7 @@ func handleRequest(conn net.Conn) {
 			defer file.Close()
 			file.Write([]byte(content))
 
-			conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
+			conn.Write([]byte("HTTP/1.1 201 CREATED\r\n\r\n"))
 			return
 		}
 		file, err := os.Open(directory + "/" + filename)
