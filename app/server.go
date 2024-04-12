@@ -35,13 +35,13 @@ func main() {
 	fmt.Println("Error reading:", err.Error())
 	os.Exit(1)
   }
-  fmt.Println(string(buf))
+//   fmt.Println(string(buf))
 
   path := strings.Split(string(buf), "\r\n")
   pathfirst := strings.Split(path[0], " ")
   output := strings.Split(pathfirst[1], "/")
   useragent := strings.Split(path[3], " ")
-//   fmt.Println(output[2])
+  fmt.Println(useragent)
 
   if pathfirst[1] == "/" {
 	conn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
