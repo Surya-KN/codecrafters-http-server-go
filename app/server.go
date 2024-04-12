@@ -68,7 +68,7 @@ func handleRequest(conn net.Conn) {
 				return
 			}
 			defer file.Close()
-			file.Write([]byte(content))
+			file.WriteString(content)
 
 			conn.Write([]byte("HTTP/1.1 201 CREATED\r\n\r\n"))
 			return
