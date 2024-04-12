@@ -62,13 +62,8 @@ func handleRequest(conn net.Conn) {
 		fmt.Println("filename:", filename)
 		if pathfirst[0] == "POST" {
 			content := path[len(path)-1]
-			file, err := os.Create(directory + "/" + filename)
-			if err != nil {
-				conn.Write([]byte("HTTP/1.1 404 NOT FOUND\r\n\r\n"))
-				return
-			}
-			defer file.Close()
-			file.WriteString(content)
+			err = os.WriteFile(directory+"/"+filename, []byte(content), 0644)
+			// file.WriteString(content)
 
 			conn.Write([]byte("HTTP/1.1 201 CREATED\r\n\r\n"))
 			return
